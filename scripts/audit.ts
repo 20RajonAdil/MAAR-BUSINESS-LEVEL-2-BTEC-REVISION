@@ -9,7 +9,7 @@ const ids = new Set<string>()
 
 for (const s of subjects) for (const t of s.topics) {
   if (!t.slides.length) fail(`${t.id}: no slides`)
-  if (t.questions.length < 8) fail(`${t.id}: fewer than 8 questions`)
+  if (!t.customTest && t.questions.length < 8) fail(`${t.id}: fewer than 8 questions`)
   for (const q of t.questions) {
     all.push(q)
     if (ids.has(q.id)) fail(`duplicate id ${q.id}`)

@@ -10,21 +10,27 @@ React + TypeScript + Vite. No backend, no API keys, no paid services. Works offl
 | Feature | Where |
 |---|---|
 | Three-dot (⋮) subject menu: **Finance** (active) and **Marketing** (Coming soon) | top-right of every page |
-| 14 Finance topics, 83 presentation slides (Previous/Next, slide counter, progress bar, keyboard + swipe) | `src/data/finance/*` |
+| 15 Finance topics, 91 presentation slides (Previous/Next, slide counter, progress bar, keyboard + swipe) | `src/data/finance/*` |
 | **TEST MY KNOWLEDGE** at the end of every topic – 179 questions (100 original course questions, 79 generated practice questions) | `Quiz` |
 | MCQ, multi-select, true/false, fill-in-the-blank, calculation and written answers with tolerant marking | `src/lib/check.ts` |
 | ✓ / ✗ feedback, correct answer, explanation and **REVISE THIS TOPIC** (jumps to the exact slide) | `Quiz`, `Results` |
 | Results page: score, correct/incorrect, topics needing revision, retry / revisit / topic menu | `Results` |
+| **Formulas You MUST Know** topic: one slide with all 11 course formulas, then short slides with worked examples | `src/data/finance/t15-formulas.ts` |
+| **Formula Test**: all 11 formulas in random order and mixed formats (pick the formula, complete it, true/false, name the measure, calculate with fresh random numbers). Weak formulas come back as extra questions. After **3 attempts** a personal **improvement report** shows the score trend, a formula-by-formula table, whether the problem is recall or calculation, and which slide to revise | `#/finance/formulas` |
 | Quick revision: 14 formulas with worked examples, 27 definitions, exam tips, common mistakes | `#/finance/revise` |
 | Search (Ctrl/⌘ + K) across topics, slides, definitions and formulas | `SearchModal` |
 | Mixed-topic practice exam (28 questions, 2 per topic) | `#/finance/exam` |
+
+## Logo
+
+The logo is `public/icon-192.png` (also used as favicon, home-screen icon and in the header, hero and footer). Replace that file (and `icon-512.png`, `favicon.png`, `apple-touch-icon.png`) to change it.
 
 ## Commands
 
 ```bash
 npm install
 npm run dev        # local development
-npm test           # unit tests for the answer-checking engine
+npm test           # unit tests: answer-checking engine and the formula-test generator (2,000 random questions)
 npm run audit      # data audit: slide links, answer indexes, and independent re-calculation of 64+ numeric answers
 npm run build      # type-check + production build into dist/
 ```

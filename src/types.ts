@@ -6,7 +6,7 @@ export type Block =
   | { t: 'list'; items: string[]; ordered?: boolean }
   | { t: 'formula'; name: string; formula: string; vars?: [string, string][] }
   | { t: 'example'; title?: string; steps: string[]; result?: string }
-  | { t: 'table'; head: string[]; rows: string[][]; caption?: string; boldRows?: number[] }
+  | { t: 'table'; head: string[]; rows: string[][]; caption?: string; boldRows?: number[]; left?: boolean }
   | { t: 'callout'; tone: 'key' | 'tip' | 'warn' | 'exam'; title?: string; text: string }
   | { t: 'terms'; items: [string, string][] }
   | { t: 'compare'; left: { title: string; items: string[] }; right: { title: string; items: string[] } }
@@ -33,6 +33,9 @@ interface QBase {
   table?: { head: string[]; rows: string[][]; boldRows?: number[] }
   chart?: ChartId
   explanation: string
+  /** formula-test metadata */
+  fid?: string
+  skill?: 'recall' | 'apply'
   marks?: number
   /** honest note shown on screen where the source material needed correcting or the answer was inferred */
   note?: string
@@ -60,6 +63,10 @@ export interface Topic {
   source: string
   slides: Slide[]
   questions: Question[]
+  /** pinned at the top of the topic menu */
+  featured?: boolean
+  /** replaces the standard question set with a dedicated test */
+  customTest?: 'formula'
 }
 
 export interface Subject {

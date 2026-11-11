@@ -35,7 +35,7 @@ export function BlockView({ b }: { b: Block }) {
     case 'table':
       return (
         <div className="b-table-wrap">
-          <table className="b-table">
+          <table className={`b-table${b.left ? ' left' : ''}`}>
             {b.caption && <caption>{b.caption}</caption>}
             <thead><tr>{b.head.map((h, i) => <th key={i} scope="col">{h}</th>)}</tr></thead>
             <tbody>

@@ -29,7 +29,7 @@ export function QuestionBody({ q, subject }: { q: Question; subject: Subject }) 
 
 interface InputProps { q: Question; value: UserAnswer; onChange: (v: UserAnswer) => void; locked: boolean; verdict?: Verdict; onSubmit: () => void }
 
-function AnswerInput({ q, value, onChange, locked, verdict, onSubmit }: InputProps) {
+export function AnswerInput({ q, value, onChange, locked, verdict, onSubmit }: InputProps) {
   if (q.type === 'mcq' || q.type === 'multi') {
     const multi = q.type === 'multi'
     const chosen = multi ? ((value as number[] | null) ?? []) : value === null ? [] : [value as number]
@@ -86,7 +86,7 @@ function AnswerInput({ q, value, onChange, locked, verdict, onSubmit }: InputPro
   )
 }
 
-function hasAnswer(q: Question, v: UserAnswer): boolean {
+export function hasAnswer(q: Question, v: UserAnswer): boolean {
   if (v === null || v === undefined) return false
   if (typeof v === 'string') return v.trim().length > 0
   if (Array.isArray(v)) return v.length > 0

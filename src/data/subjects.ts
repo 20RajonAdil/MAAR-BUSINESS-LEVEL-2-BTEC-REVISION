@@ -4,6 +4,7 @@ import { totalCosts, revenue, profitLoss } from './finance/t05-t07'
 import { breakEvenChart, breakEvenCalc } from './finance/t08-t09'
 import { grossNetProfit, incomeStatement, financialPosition } from './finance/t10-t12'
 import { cashFlow, ratiosComparing } from './finance/t13-t14'
+import { mustKnowFormulas } from './finance/t15-formulas'
 import { financeQuick } from './finance/quick'
 
 export const finance: Subject = {
@@ -11,7 +12,7 @@ export const finance: Subject = {
   name: 'Finance',
   tagline: 'Unit 2 · Finance for Business',
   status: 'active',
-  topics: [startUpCosts, runningCosts, fixedCosts, variableCosts, totalCosts, revenue, profitLoss, breakEvenChart, breakEvenCalc, grossNetProfit, incomeStatement, financialPosition, cashFlow, ratiosComparing],
+  topics: [startUpCosts, runningCosts, fixedCosts, variableCosts, totalCosts, revenue, profitLoss, breakEvenChart, breakEvenCalc, grossNetProfit, incomeStatement, financialPosition, cashFlow, ratiosComparing, mustKnowFormulas],
   quick: financeQuick,
 }
 

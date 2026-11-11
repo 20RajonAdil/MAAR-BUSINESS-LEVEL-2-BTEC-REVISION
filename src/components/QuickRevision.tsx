@@ -26,6 +26,7 @@ export function QuickRevision({ subject, find }: { subject: Subject; find?: stri
       <nav className="crumbs" aria-label="Breadcrumb"><a href={`#/${subject.id}`}>← All topics</a><span aria-hidden="true">/</span><span>Quick revision</span></nav>
       <h1 className="page-title">⚡ Quick revision</h1>
       <p className="muted">Definitions, formulas with worked examples, exam tips and common mistakes from your course materials.</p>
+      <div className="qr-banner"><span>🧮 Know your 11 must-know formulas?</span><button className="btn btn-gold" onClick={() => go(paths.formulas(subject.id))}>Take the Formula Test</button></div>
       <div className="filter">
         <label htmlFor="qr-filter" className="sr-only">Filter quick revision</label>
         <input id="qr-filter" type="search" value={q} onChange={e => setQ(e.target.value)} placeholder="Filter by word, e.g. ‘margin’, ‘ratio’, ‘fixed’…" />

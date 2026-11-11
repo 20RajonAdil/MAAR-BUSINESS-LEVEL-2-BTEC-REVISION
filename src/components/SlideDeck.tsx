@@ -11,6 +11,7 @@ export function SlideDeck({ subjectId, topic, index }: { subjectId: string; topi
   const frame = useRef<HTMLElement>(null)
   const { markViewed } = useProgress()
 
+  const testPath = topic.customTest ? paths.formulas(subjectId) : paths.quiz(subjectId, topic.id)
   const goTo = (n: number) => go(paths.learn(subjectId, topic.id, Math.max(0, Math.min(n, total))))
 
   useEffect(() => { if (i < total) markViewed(topic.id, i) }, [i, total, topic.id, markViewed])
@@ -65,8 +66,8 @@ export function SlideDeck({ subjectId, topic, index }: { subjectId: string; topi
               <div className="finish-emoji" aria-hidden="true">🎓</div>
               <h2 className="slide-title">You’ve finished “{topic.title}”</h2>
               <p>Learn → Understand → <strong>Test my knowledge</strong> → Check results → Revise → Try again.</p>
-              <button className="btn btn-gold btn-xl" onClick={() => go(paths.quiz(subjectId, topic.id))}>TEST MY KNOWLEDGE</button>
-              <p className="muted">{topic.questions.length} questions on this topic</p>
+              <button className="btn btn-gold btn-xl" onClick={() => go(testPath)}>TEST MY KNOWLEDGE</button>
+              <p className="muted">{topic.customTest ? 'A randomised test of all 11 formulas, repeated 3 times for your personal improvement report' : `${topic.questions.length} questions on this topic`}</p>
               <button className="btn btn-ghost" onClick={() => goTo(0)}>Review the slides again</button>
             </div>
           )}
@@ -78,7 +79,7 @@ export function SlideDeck({ subjectId, topic, index }: { subjectId: string; topi
             {topic.slides.map((_, k) => <button key={k} tabIndex={-1} className={k === i ? 'on' : k < i ? 'done' : ''} onClick={() => goTo(k)} />)}
           </div>
           {finished
-            ? <button className="btn btn-gold" onClick={() => go(paths.quiz(subjectId, topic.id))}>Test my knowledge →</button>
+            ? <button className="btn btn-gold" onClick={() => go(testPath)}>Test my knowledge →</button>
             : i === total - 1
               ? <button className="btn btn-gold" onClick={() => goTo(total)}>Finish →</button>
               : <button className="btn btn-primary" onClick={() => goTo(i + 1)}>Next →</button>}

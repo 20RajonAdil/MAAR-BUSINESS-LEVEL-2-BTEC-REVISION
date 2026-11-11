@@ -7,6 +7,8 @@ import { Quiz } from './components/Quiz'
 import { Results } from './components/Results'
 import { QuickRevision } from './components/QuickRevision'
 import { SearchModal } from './components/SearchModal'
+import { FormulaTest } from './components/FormulaTest'
+import { Logo } from './components/Logo'
 import { MIXED } from './lib/exam'
 import './styles/app.css'
 
@@ -44,7 +46,7 @@ function ComingSoon({ name }: { name: string }) {
   return (
     <div className="soon">
       <div className="soon-card">
-        <div className="soon-emoji" aria-hidden="true">🚧</div>
+        <Logo className="soon-logo" />
         <p className="eyebrow">{name}</p>
         <h1>Coming soon</h1>
         <p>The {name} learning materials are being prepared. This section will include presentation-style lessons, practice questions and quick revision, just like Finance.</p>
@@ -77,6 +79,7 @@ export default function App() {
     page = topic ? <SlideDeck key={topic.id} subjectId={subject.id} topic={topic} index={route.slide ?? 0} /> : <p className="empty">Topic not found. <a href={`#/${subject.id}`}>Back to topics</a></p>
   } else if (route.page === 'quiz') page = <Quiz key={route.topic} subject={subject} topicId={route.topic!} />
   else if (route.page === 'exam') page = <Quiz key={'mixed-' + examNonce} subject={subject} topicId={MIXED} />
+  else if (route.page === 'formulas') page = <FormulaTest subject={subject} />
   else if (route.page === 'results') page = <Results subject={subject} topicId={route.topic!} />
   else if (route.page === 'revise') page = <QuickRevision key={route.find ?? ''} subject={subject} find={route.find} />
   else page = <TopicMenu subject={subject} openSearch={() => setSearching(true)} />
@@ -86,7 +89,7 @@ export default function App() {
       <a className="skip" href="#main">Skip to content</a>
       <header className="topbar">
         <a className="brand" href={`#/${subject.id}`} aria-label="MAAR BUSINESS LEVEL 2 BTEC home">
-          <span className="logo" aria-hidden="true">M</span>
+          <Logo className="logo-img" />
           <span className="brand-text"><strong>MAAR</strong> BUSINESS <span>LEVEL 2 BTEC</span></span>
         </a>
         <div className="top-actions">
@@ -97,6 +100,7 @@ export default function App() {
       </header>
       <main id="main" className="main">{page}</main>
       <footer className="foot">
+        <Logo className="foot-logo" />
         <p>MAAR BUSINESS LEVEL 2 BTEC · Unit 2 Finance for Business revision · Built from your course slides. Questions marked “Practice” were generated from the lesson content.</p>
       </footer>
       {searching && active && <SearchModal subject={subject} onClose={() => setSearching(false)} />}
