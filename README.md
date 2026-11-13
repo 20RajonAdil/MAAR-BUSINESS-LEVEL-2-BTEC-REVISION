@@ -5,6 +5,15 @@ React + TypeScript + Vite. No backend, no API keys, no paid services. Works offl
 
 **Learning journey:** LEARN → UNDERSTAND → TEST MY KNOWLEDGE → CHECK RESULTS → REVISE → TRY AGAIN
 
+## Subjects
+
+| Subject | Status | Content |
+|---|---|---|
+| **Finance** (Unit 2) | Live | 15 topics · 91 slides · 179 questions · Formula Test |
+| **Marketing** (Unit 9) | Live | 7 topics · 66 slides · 119 questions · quick revision · mixed exam |
+
+Marketing was built from `Lesson 01, 02, 04, 05, 06, 07, 08` and the Marketing `Revision` deck. **Lesson 03 was not in the uploaded pack**, so topic numbers go 1, 2, 4, 5, 6, 7, 8 on purpose. When it arrives, add a topic file in `src/data/marketing/` and insert it in `src/data/subjects.ts` between `markets` and `research`.
+
 ## What is in it
 
 | Feature | Where |
@@ -41,10 +50,10 @@ npm run build      # type-check + production build into dist/
 * **Vercel / Netlify:** framework preset *Vite*, build command `npm run build`, output `dist`.
 * The build uses relative paths and a hash router, so it works under any sub-path.
 
-## Adding Marketing (or any new subject)
+## Adding another subject (or Marketing Lesson 03)
 
 1. Create `src/data/marketing/…` topics using the same `Topic` shape (`slides` + `questions`, see `src/types.ts`).
-2. In `src/data/subjects.ts` fill `marketing.topics`, add `quick` if wanted, and change `status` to `'active'`.
+2. In `src/data/subjects.ts` add the topics (and `quick` revision data) to the subject and set `status: 'active'`.
 3. Menu, topic cards, slides, quizzes, results, search and the mixed exam all work automatically.
 4. Run `npm run audit` – it checks every question's slide link and answer index.
 
@@ -71,3 +80,15 @@ The lesson decks 01 and 02 contain no questions (they link to external quizzes);
 * The images inside the PowerPoint files (e.g. clip-art, timers) are not reproduced; charts and tables were redrawn as live SVG/HTML from their data.
 * Progress and best scores are stored in the browser (`localStorage`) on each device.
 * Offline mode uses a small service worker and only works on the deployed site (HTTPS), after one online visit.
+
+## Marketing: things to check with your teacher
+
+| Where | Issue | What this site does |
+|---|---|---|
+| Product life cycle | Lesson 07 lists *Development, Introduction, Growth, Maturity, Decline*; the Revision deck lists *Development, Growth, Maturity, Saturation, Decline* (the diagram has five blanked boxes) | Slides show the lesson version with a warning; the Revision question follows the Revision deck and says so |
+| Below-the-line promotion | The Revision deck lists “advertising” as a below-the-line example, but Lesson 08 treats mass-media advertising (TV, billboards) as above the line | Both shown with a warning; the quiz options leave “advertising” out |
+| Classroom “Apply it” activities | No answer keys | Converted to questions where an answer follows from the lesson's definitions, flagged “answer inferred” |
+| Exam practice questions | Only brief marking guidance is given | Model answers were written from that guidance and are flagged; written answers are marked by key ideas |
+| Mock-exam slide | Date (20 Oct 2026) has passed | Not included |
+
+Lesson boilerplate (the repeated starter and plenary slides, speaker prompts) was not turned into slides; every content slide, definition, activity prompt and piece of marking guidance was kept.

@@ -8,7 +8,7 @@ import { inline } from '../lib/text'
 import { useState } from 'react'
 
 export function Results({ subject, topicId }: { subject: Subject; topicId: string }) {
-  const res = loadResult(topicId)
+  const res = loadResult(topicId === MIXED ? `${MIXED}:${subject.id}` : topicId)
   const [open, setOpen] = useState<string | null>(null)
   const isMixed = topicId === MIXED
   const topic = subject.topics.find(t => t.id === topicId)

@@ -41,6 +41,7 @@ const exp: Record<string, number> = {
   'financial-position-q2': (24740 + 8630 + 6250) - (31370 + 4200), 'financial-position-q3': (18270 + 6450 + 3760) - (21640 + 9650),
   'financial-position-q4': 28250 - 22600, 'financial-position-q5': 9650 - 4200, 'financial-position-q6': 32300 - 19790,
   'cash-flow-q2': 300 - 100, 'cash-flow-q3': 1500 - 1100, 'cash-flow-q5': 6000 - 9550, 'cash-flow-q6': -2400 + 2750, 'cash-flow-q7': 8000 - 6400,
+  'interpreting-research-q1': (3 / 25) * 100, 'interpreting-research-q2': (2 / 20) * 100, 'interpreting-research-q3': (1.2 / 10) * 100, 'interpreting-research-q4': (1.5 / 15) * 100, 'interpreting-research-q9': (450000 / 3000000) * 100, 'interpreting-research-q10': (50000 / 1000000) * 100,
   'ratios-comparing-q6': (12300 / 150000) * 100, 'ratios-comparing-q7': 3514 / 2510, 'ratios-comparing-q8': (14555 / 33875) * 100, 'ratios-comparing-q9': (60000 / 240000) * 100,
   'ratios-comparing-q10': (39620 - 6250) / 35570, 'ratios-comparing-q11': 28480 / 31290, 'ratios-comparing-q12': 480000 - 255000, 'ratios-comparing-q13': 65000 - 52000,
 }

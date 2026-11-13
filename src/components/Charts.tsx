@@ -8,7 +8,40 @@ const SAFETY: Cfg = { xMax: 60, yMax: 1200, xStep: 10, yStep: 200, fixed: 200, p
 
 const W = 560, H = 340, L = 64, R = 24, T = 18, B = 52
 
+function PlcChart() {
+  const W2 = 560, H2 = 320, L2 = 24, R2 = 24, T2 = 54, B2 = 24
+  const bw = (W2 - L2 - R2) / 5
+  const X = (k: number) => L2 + k * bw
+  const Y = (v: number) => H2 - B2 - v * (H2 - T2 - B2)
+  const stages = [
+    { n: 'Development', c: '#e2e8f0' }, { n: 'Introduction', c: '#dbeafe' }, { n: 'Growth', c: '#ede9fe' }, { n: 'Maturity', c: '#fee2e2' }, { n: 'Decline', c: '#ffedd5' },
+  ]
+  const d = `M ${X(0)} ${Y(0)} L ${X(1)} ${Y(0)} C ${X(1.5)} ${Y(0)}, ${X(1.6)} ${Y(0.05)}, ${X(2)} ${Y(0.15)} C ${X(2.4)} ${Y(0.3)}, ${X(2.6)} ${Y(0.8)}, ${X(3)} ${Y(0.88)} C ${X(3.3)} ${Y(0.98)}, ${X(3.6)} ${Y(1)}, ${X(4)} ${Y(0.92)} C ${X(4.4)} ${Y(0.8)}, ${X(4.6)} ${Y(0.3)}, ${X(5)} ${Y(0.08)}`
+  return (
+    <figure className="chart">
+      <svg viewBox={`0 0 ${W2} ${H2}`} role="img" aria-label="Product life cycle: development with no sales, introduction with low sales, growth with rapid sales, maturity at the peak with slower growth, then decline.">
+        <rect width={W2} height={H2} fill="#fff" />
+        {stages.map((s, i) => (
+          <g key={s.n}>
+            <rect x={X(i)} y={T2 - 30} width={bw} height={H2 - B2 - T2 + 30} fill={s.c} />
+            <text x={X(i) + bw / 2} y={T2 - 10} textAnchor="middle" fontSize={13} fontWeight={800} fill="#0f172a">{s.n}</text>
+          </g>
+        ))}
+        <path d={d} fill="none" stroke="#0b2a4a" strokeWidth={4} strokeLinecap="round" />
+        <line x1={L2} x2={W2 - R2} y1={Y(0)} y2={Y(0)} stroke="#334155" strokeWidth={1.5} />
+        <text x={L2 + 4} y={Y(0) - 6} fontSize={11} fill="#475569">Investment, no sales</text>
+        <text x={X(1) + 6} y={Y(0.2)} fontSize={11} fill="#1e3a8a">Low sales</text>
+        <text x={X(2) + 8} y={Y(0.55)} fontSize={11} fill="#4c1d95">Rapid sales</text>
+        <text x={X(3) + 8} y={Y(0.7)} fontSize={11} fill="#7f1d1d">Slower growth</text>
+        <text x={X(4) + 8} y={Y(0.55)} fontSize={11} fill="#7c2d12">Falling demand</text>
+        <text x={W2 / 2} y={H2 - 6} textAnchor="middle" fontSize={12} fontWeight={600} fill="#0f172a">Time → (sales on the vertical axis)</text>
+      </svg>
+    </figure>
+  )
+}
+
 export function Chart({ id }: { id: ChartId }) {
+  if (id === 'plc') return <PlcChart />
   const cfg = id === 'candles' ? CANDLES : id === 'safety' ? SAFETY : BREAKEVEN
   const x = (v: number) => L + (v / cfg.xMax) * (W - L - R)
   const y = (v: number) => H - B - (v / cfg.yMax) * (H - T - B)

@@ -1,4 +1,4 @@
-export type ChartId = 'breakeven' | 'candles' | 'mark-be' | 'mark-tc' | 'mark-loss' | 'mark-fixed' | 'safety'
+export type ChartId = 'breakeven' | 'candles' | 'mark-be' | 'mark-tc' | 'mark-loss' | 'mark-fixed' | 'safety' | 'plc'
 
 // ---------- Learning slide content ----------
 export type Block =

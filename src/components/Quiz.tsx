@@ -119,7 +119,7 @@ export function Quiz({ subject, topicId }: { subject: Subject; topicId: string }
   const next = () => {
     if (idx < questions.length - 1) { setIdx(idx + 1); window.scrollTo({ top: 0 }); return }
     const items = questions.map(qq => ({ qid: qq.id, answer: answers[qq.id] ?? null, correct: !!verdicts[qq.id]?.correct, score: verdicts[qq.id]?.score ?? 0 }))
-    saveResult({ topicId, at: Date.now(), items, questionIds: questions.map(qq => qq.id) })
+    saveResult({ topicId: isMixed ? `${MIXED}:${subject.id}` : topicId, at: Date.now(), items, questionIds: questions.map(qq => qq.id) })
     go(paths.results(subject.id, topicId))
   }
 
