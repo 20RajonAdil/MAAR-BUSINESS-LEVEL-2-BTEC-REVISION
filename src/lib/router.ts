@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 export interface Route {
   subject: string
-  page: 'home' | 'learn' | 'quiz' | 'results' | 'revise' | 'exam' | 'formulas'
+  page: 'home' | 'learn' | 'quiz' | 'results' | 'revise' | 'exam' | 'formulas' | 'progress'
   topic?: string
   slide?: number
   find?: string
@@ -20,6 +20,7 @@ export function parseHash(hash: string): Route {
   if (page === 'revise') return { subject, page: 'revise', find: params.get('find') ?? undefined }
   if (page === 'exam') return { subject, page: 'exam' }
   if (page === 'formulas') return { subject, page: 'formulas' }
+  if (page === 'progress') return { subject, page: 'progress' }
   return { subject, page: 'home' }
 }
 
@@ -35,6 +36,7 @@ export const paths = {
   revise: (s: string, find?: string) => `${s}/revise${find ? `?find=${encodeURIComponent(find)}` : ''}`,
   exam: (s: string) => `${s}/exam`,
   formulas: (s: string) => `${s}/formulas`,
+  progress: (s: string) => `${s}/progress`,
 }
 
 export function useRoute(): Route {

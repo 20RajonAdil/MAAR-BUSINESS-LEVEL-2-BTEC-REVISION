@@ -92,6 +92,7 @@ export function Hero({ subject, openSearch }: { subject: Subject; openSearch: ()
             <button className="btn btn-ghost-dark" onClick={() => go(paths.revise(subject.id))}><Icon name="zap" size={18} /> Quick revision</button>
             {featured?.customTest && <button className="btn btn-ghost-dark" onClick={() => go(paths.formulas(subject.id))}><Icon name="sigma" size={18} /> Formula test</button>}
             <button className="btn btn-ghost-dark" onClick={() => go(paths.exam(subject.id))}><Icon name="exam" size={18} /> Practice exam</button>
+            <button className="btn btn-ghost-dark" onClick={() => go(paths.progress(subject.id))}><Icon name="line-chart" size={18} /> Progress check</button>
             <button className="btn btn-ghost-dark" onClick={openSearch}><Icon name="search" size={18} /> Search</button>
           </div>
           <dl className="hero-stats">

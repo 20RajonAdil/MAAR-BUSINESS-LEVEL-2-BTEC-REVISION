@@ -47,6 +47,7 @@ export function Results({ subject, topicId }: { subject: Subject; topicId: strin
         <div className="score-actions">
           <button className="btn btn-gold" onClick={() => go(isMixed ? paths.exam(subject.id) : paths.quiz(subject.id, topicId))}><Icon name="refresh" size={18} /> Try again</button>
           {!isMixed && <button className="btn btn-primary" onClick={() => go(paths.learn(subject.id, topicId, 0))}>Revisit the presentation</button>}
+          <button className="btn btn-outline" onClick={() => go(paths.progress(subject.id))}>Progress check</button>
           <button className="btn btn-outline" onClick={() => go(paths.home(subject.id))}>Topic menu</button>
         </div>
       </section>

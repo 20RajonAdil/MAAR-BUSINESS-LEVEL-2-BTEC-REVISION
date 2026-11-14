@@ -8,6 +8,7 @@ import { Results } from './components/Results'
 import { QuickRevision } from './components/QuickRevision'
 import { SearchModal } from './components/SearchModal'
 import { FormulaTest } from './components/FormulaTest'
+import { Progress } from './components/Progress'
 import { BottomNav } from './components/BottomNav'
 import { OfflinePill, OfflineToast } from './components/OfflineStatus'
 import { Icon } from './components/Icon'
@@ -17,6 +18,7 @@ import './styles/fonts.css'
 import './styles/app.css'
 import './styles/hero.css'
 import './styles/mobile.css'
+import './styles/progress.css'
 
 function SubjectMenu({ current, open, setOpen }: { current: string; open: boolean; setOpen: (v: boolean) => void }) {
   const wrap = useRef<HTMLDivElement>(null)
@@ -91,6 +93,7 @@ export default function App() {
   } else if (route.page === 'quiz') page = <Quiz key={route.topic} subject={subject} topicId={route.topic!} />
   else if (route.page === 'exam') page = <Quiz key={'mixed-' + examNonce} subject={subject} topicId={MIXED} />
   else if (route.page === 'formulas' && subject.topics.some(t => t.customTest)) page = <FormulaTest subject={subject} />
+  else if (route.page === 'progress') page = <Progress subject={subject} />
   else if (route.page === 'results') page = <Results subject={subject} topicId={route.topic!} />
   else if (route.page === 'revise') page = <QuickRevision key={route.find ?? ''} subject={subject} find={route.find} />
   else page = <TopicMenu subject={subject} openSearch={() => setSearching(true)} />

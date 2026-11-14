@@ -9,6 +9,7 @@ export function BottomNav({ route, subjectId, onSearch, onSubjects }: { route: R
     { id: 'revise', label: 'Revise', icon: 'zap', on: route.page === 'revise', act: () => go(paths.revise(subjectId)) },
     { id: 'search', label: 'Search', icon: 'search', on: false, act: onSearch },
     { id: 'exam', label: 'Exam', icon: 'exam', on: route.page === 'exam', act: () => go(paths.exam(subjectId)) },
+    { id: 'progress', label: 'Progress', icon: 'line-chart', on: route.page === 'progress', act: () => go(paths.progress(subjectId)) },
     { id: 'subject', label: 'Subject', icon: 'layers', on: false, act: onSubjects },
   ]
   return (

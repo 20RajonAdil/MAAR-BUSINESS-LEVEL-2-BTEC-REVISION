@@ -32,6 +32,11 @@ export function TopicMenu({ subject, openSearch }: { subject: Subject; openSearc
           </section>
         )}
 
+        <div className="pg-cta">
+          <div><strong>Progress check</strong><span>See a graph of your scores and which {subject.name} topics are weak.</span></div>
+          <button className="btn btn-primary" onClick={() => go(paths.progress(subject.id))}><Icon name="line-chart" size={18} /> Progress check</button>
+        </div>
+
         <h2 className="section-title" id="topics">Topics</h2>
         <ul className="topic-grid">
           {regular.map(t => {

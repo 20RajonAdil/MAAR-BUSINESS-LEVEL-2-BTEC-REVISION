@@ -3,7 +3,8 @@ import type { Question, Subject, UserAnswer, Verdict } from '../types'
 import { checkAnswer, correctAnswerText } from '../lib/check'
 import { go, paths } from '../lib/router'
 import { saveResult } from '../lib/store'
-import { MIXED, buildMixed } from '../lib/exam'
+import { MIXED } from '../lib/exam'
+import { buildMixedAdaptive, buildTopicQuiz, loadMastery, logSession, recordAnswer } from '../lib/adaptive'
 import { inline } from '../lib/text'
 import { BlockView } from './Blocks'
 import { Chart } from './Charts'
@@ -97,7 +98,12 @@ export function hasAnswer(q: Question, v: UserAnswer): boolean {
 export function Quiz({ subject, topicId }: { subject: Subject; topicId: string }) {
   const isMixed = topicId === MIXED
   const topic = subject.topics.find(t => t.id === topicId)
-  const questions = useMemo<Question[]>(() => (isMixed ? buildMixed(subject) : topic?.questions ?? []), [isMixed, subject, topic])
+  // Fresh random selection and order every attempt; questions this person finds hard are more likely to appear.
+  const [questions, smart] = useMemo<[Question[], boolean]>(() => {
+    const m = loadMastery()
+    const qs = isMixed ? buildMixedAdaptive(subject, m) : topic ? buildTopicQuiz(topic, m) : []
+    return [qs, qs.some(x => m[x.id]?.seen)]
+  }, [isMixed, subject, topic])
   const [idx, setIdx] = useState(0)
   const [answers, setAnswers] = useState<Record<string, UserAnswer>>({})
   const [verdicts, setVerdicts] = useState<Record<string, Verdict>>({})
@@ -114,12 +120,14 @@ export function Quiz({ subject, topicId }: { subject: Subject; topicId: string }
     if (checked || !hasAnswer(q, value)) return
     const v = checkAnswer(q, value)
     setVerdicts(prev => ({ ...prev, [q.id]: v }))
+    recordAnswer(q.id, v)
     setTimeout(() => feedback.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50)
   }
 
   const next = () => {
     if (idx < questions.length - 1) { setIdx(idx + 1); window.scrollTo({ top: 0 }); return }
     const items = questions.map(qq => ({ qid: qq.id, answer: answers[qq.id] ?? null, correct: !!verdicts[qq.id]?.correct, score: verdicts[qq.id]?.score ?? 0 }))
+    logSession({ at: Date.now(), subject: subject.id, scope: isMixed ? MIXED : topicId, n: questions.length, pct: Math.round((items.filter(i => i.correct).length / Math.max(items.length, 1)) * 100) })
     saveResult({ topicId: isMixed ? `${MIXED}:${subject.id}` : topicId, at: Date.now(), items, questionIds: questions.map(qq => qq.id) })
     go(paths.results(subject.id, topicId))
   }
@@ -135,6 +143,7 @@ export function Quiz({ subject, topicId }: { subject: Subject; topicId: string }
           <div className="quiz-title"><Icon name={isMixed ? 'exam' : topic!.icon} size={20} />{isMixed ? 'Mixed practice exam' : topic!.title}</div>
           <div className="deck-count" aria-live="polite">Question {idx + 1} of {questions.length}</div>
         </header>
+        {smart && <p className="quiz-smart">Smart practice: questions you find harder come up more often.</p>}
         <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={questions.length} aria-valuenow={done} aria-label="Questions answered"><div style={{ width: `${(done / questions.length) * 100}%` }} /></div>
 
         <div className="quiz-body">
