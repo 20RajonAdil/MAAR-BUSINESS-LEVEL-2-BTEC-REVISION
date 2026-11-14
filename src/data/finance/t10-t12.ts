@@ -16,7 +16,7 @@ export const grossNetProfit: Topic = {
   number: 10,
   title: 'Gross Profit & Net Profit',
   summary: 'The income statement: calculating gross profit and net profit and why net profit matters more.',
-  icon: '🧾',
+  icon: 'receipt',
   source: 'Lesson 10 – Income Statement (Part 1); Revision.pptx (Gross Profit, Gross Profit after the discount)',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [
@@ -76,7 +76,7 @@ export const incomeStatement: Topic = {
   number: 11,
   title: 'Analysing an Income Statement',
   summary: 'Reading two years of figures, commenting on each row with a statistic, and reaching a conclusion.',
-  icon: '🔍',
+  icon: 'file-search',
   source: 'Lesson 11 – Income Statement (Part 2)',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [
@@ -150,7 +150,7 @@ export const financialPosition: Topic = {
   number: 12,
   title: 'Statement of Financial Position',
   summary: 'The balance sheet: assets, liabilities, working capital and how a business is financed.',
-  icon: '🏦',
+  icon: 'landmark',
   source: 'Lesson 12 – Financial Position; Revision.pptx (Fixed asset)',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [

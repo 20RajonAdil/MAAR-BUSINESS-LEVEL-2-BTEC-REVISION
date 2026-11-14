@@ -11,7 +11,7 @@ export const mustKnowFormulas: Topic = {
   number: 15,
   title: 'Formulas You MUST Know Before the Exam',
   summary: 'All 11 off-by-heart formulas on one slide, then a randomised Formula Test with a personal improvement report.',
-  icon: '🧮',
+  icon: 'sigma',
   source: 'Course formula sheet “Formulas You MUST Know Off-By-Heart”; worked examples from Lessons 05, 06, 07, 09, 10 and the Revision deck',
   featured: true,
   customTest: 'formula',

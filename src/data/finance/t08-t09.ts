@@ -10,7 +10,7 @@ export const breakEvenChart: Topic = {
   number: 8,
   title: 'Break-Even: The Chart',
   summary: 'Labelling the break-even chart, what break-even means, and its benefits and limitations.',
-  icon: '📊',
+  icon: 'bar-chart',
   source: 'Lesson 08 – Break-Even (Part 1); Revision.pptx (Break-Even Chart)',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [
@@ -79,7 +79,7 @@ export const breakEvenCalc: Topic = {
   number: 9,
   title: 'Break-Even: Margin of Safety & Formula',
   summary: 'Understanding margin of safety and calculating the break-even point.',
-  icon: '🎯',
+  icon: 'target',
   source: 'Lesson 09 – Break-Even (Part 2)',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [

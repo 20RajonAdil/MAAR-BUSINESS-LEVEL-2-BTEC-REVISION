@@ -6,6 +6,7 @@ import { correctAnswerText } from '../lib/check'
 import { QuestionBody } from './Quiz'
 import { inline } from '../lib/text'
 import { useState } from 'react'
+import { Icon } from './Icon'
 
 export function Results({ subject, topicId }: { subject: Subject; topicId: string }) {
   const res = loadResult(topicId === MIXED ? `${MIXED}:${subject.id}` : topicId)
@@ -32,7 +33,7 @@ export function Results({ subject, topicId }: { subject: Subject; topicId: strin
 
   return (
     <div className="results">
-      <nav className="crumbs" aria-label="Breadcrumb"><a href={`#/${subject.id}`}>← All topics</a><span aria-hidden="true">/</span><span>Results</span></nav>
+      <nav className="crumbs" aria-label="Breadcrumb"><a href={`#/${subject.id}`}><Icon name="arrow-left" size={15} /> All topics</a><span aria-hidden="true">/</span><span>Results</span></nav>
       <section className="score-card">
         <p className="eyebrow">{isMixed ? 'Mixed practice exam' : topic?.title}</p>
         <div className="score-ring" style={{ ['--pct' as string]: `${pct}%` }}><span>{pct}%</span></div>
@@ -44,7 +45,7 @@ export function Results({ subject, topicId }: { subject: Subject; topicId: strin
           <div className="stat"><strong>{missedByTopic.size}</strong><span>Topics to revise</span></div>
         </div>
         <div className="score-actions">
-          <button className="btn btn-gold" onClick={() => go(isMixed ? paths.exam(subject.id) : paths.quiz(subject.id, topicId))}>↻ Try again</button>
+          <button className="btn btn-gold" onClick={() => go(isMixed ? paths.exam(subject.id) : paths.quiz(subject.id, topicId))}><Icon name="refresh" size={18} /> Try again</button>
           {!isMixed && <button className="btn btn-primary" onClick={() => go(paths.learn(subject.id, topicId, 0))}>Revisit the presentation</button>}
           <button className="btn btn-outline" onClick={() => go(paths.home(subject.id))}>Topic menu</button>
         </div>
@@ -59,14 +60,14 @@ export function Results({ subject, topicId }: { subject: Subject; topicId: strin
               const first = Math.min(...e.slides)
               return (
                 <li key={tid} className="revise-item">
-                  <div><strong>{t.icon} {t.title}</strong><div className="muted small">{e.count} question{e.count > 1 ? 's' : ''} missed · start with “{t.slides[first]?.title}”</div></div>
+                  <div><strong className="with-ic"><Icon name={t.icon} size={18} /> {t.title}</strong><div className="muted small">{e.count} question{e.count > 1 ? 's' : ''} missed · start with “{t.slides[first]?.title}”</div></div>
                   <button className="btn btn-gold" onClick={() => go(paths.learn(subject.id, tid, first))}>REVISE THIS TOPIC</button>
                 </li>
               )
             })}
           </ul>
         </section>
-      ) : <div className="callout-win">🎉 Perfect score: no topics need extra revision.</div>}
+      ) : <div className="callout-win"><Icon name="trophy" size={22} /> Perfect score: no topics need extra revision.</div>}
 
       <section>
         <h2 className="section-title">Your answers</h2>
@@ -77,7 +78,7 @@ export function Results({ subject, topicId }: { subject: Subject; topicId: strin
             return (
               <li key={it.qid} className={`review-item ${it.correct ? 'ok' : 'no'}`}>
                 <button className="review-head" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : it.qid)}>
-                  <span className="fb-icon" aria-hidden="true">{it.correct ? '✓' : '✗'}</span>
+                  <span className="fb-icon" aria-hidden="true"><Icon name={it.correct ? 'check' : 'x'} size={16} strokeWidth={3.2} /></span>
                   <span className="review-q">{n + 1}. {q.prompt.replace(/\*\*/g, '')}</span>
                   <span className="muted small">{it.correct ? 'Correct' : 'Incorrect'}</span>
                 </button>

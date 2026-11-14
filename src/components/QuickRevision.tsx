@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Subject } from '../types'
 import { go, paths } from '../lib/router'
+import { Icon } from './Icon'
 
 type Tab = 'definitions' | 'formulas' | 'tips'
 
@@ -13,7 +14,7 @@ export function QuickRevision({ subject, find }: { subject: Subject; find?: stri
   const topicName = (id?: string) => subject.topics.find(t => t.id === id)
   const link = (id?: string) => {
     const t = topicName(id)
-    return t ? <button className="link" onClick={() => go(paths.learn(subject.id, t.id, 0))}>Topic {t.number}: {t.title} →</button> : null
+    return t ? <button className="link" onClick={() => go(paths.learn(subject.id, t.id, 0))}>Topic {t.number}: {t.title} <Icon name="arrow-right" size={14} /></button> : null
   }
   const defs = quick.definitions.filter(d => match(d.term, d.definition))
   const forms = quick.formulas.filter(f => match(f.name, f.formula, ...f.vars.flat(), ...f.worked))
@@ -23,10 +24,10 @@ export function QuickRevision({ subject, find }: { subject: Subject; find?: stri
 
   return (
     <div className="revise">
-      <nav className="crumbs" aria-label="Breadcrumb"><a href={`#/${subject.id}`}>← All topics</a><span aria-hidden="true">/</span><span>Quick revision</span></nav>
-      <h1 className="page-title">⚡ Quick revision</h1>
+      <nav className="crumbs" aria-label="Breadcrumb"><a href={`#/${subject.id}`}><Icon name="arrow-left" size={15} /> All topics</a><span aria-hidden="true">/</span><span>Quick revision</span></nav>
+      <h1 className="page-title with-ic"><Icon name="zap" size={26} /> Quick revision</h1>
       <p className="muted">Definitions, formulas with worked examples, exam tips and common mistakes from your course materials.</p>
-      {subject.topics.some(t => t.customTest) && <div className="qr-banner"><span>🧮 Know your 11 must-know formulas?</span><button className="btn btn-gold" onClick={() => go(paths.formulas(subject.id))}>Take the Formula Test</button></div>}
+      {subject.topics.some(t => t.customTest) && <div className="qr-banner"><span className="with-ic"><Icon name="sigma" size={20} /> Know your 11 must-know formulas?</span><button className="btn btn-gold" onClick={() => go(paths.formulas(subject.id))}>Take the Formula Test</button></div>}
       <div className="filter">
         <label htmlFor="qr-filter" className="sr-only">Filter quick revision</label>
         <input id="qr-filter" type="search" value={q} onChange={e => setQ(e.target.value)} placeholder="Filter by word, e.g. ‘margin’, ‘ratio’, ‘fixed’…" />

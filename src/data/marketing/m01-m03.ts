@@ -11,7 +11,7 @@ export const principles: Topic = {
   number: 1,
   title: 'Principles of Marketing',
   summary: 'What marketing is, why it matters, how it supports corporate objectives, and how to write SMART objectives.',
-  icon: '📣',
+  icon: 'megaphone',
   source: 'Lesson 01 – Principles of Marketing (Learning Aim A, Topic A.1); Revision slide 7 (SMART)',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [
@@ -89,7 +89,7 @@ export const markets: Topic = {
   number: 2,
   title: 'Markets, Customers and Orientation',
   summary: 'B2B and B2C, customers and consumers, goods and services, mass and niche markets, and market vs product orientation.',
-  icon: '🛒',
+  icon: 'shopping-cart',
   source: 'Lesson 02 – Markets, Customers and Orientation (Learning Aim A, Topic A.2); Revision slides 3–6, 13, 14, 20',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: ['Identify B2B and B2C markets.', 'Distinguish customers, consumers, goods and services.', 'Compare mass and niche markets.', 'Explain market and product orientation.'] }] },
@@ -174,7 +174,7 @@ export const research: Topic = {
   number: 4,
   title: 'Types and Sources of Market Research',
   summary: 'Primary and secondary research, quantitative and qualitative data, methods, and internal and external data.',
-  icon: '🔬',
+  icon: 'microscope',
   source: 'Lesson 04 – Types and Sources of Market Research; Revision slides 15–17',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: ['Distinguish primary and secondary research.', 'Compare quantitative and qualitative data.', 'Select suitable collection methods.', 'Explain internal and external data.'] }] },

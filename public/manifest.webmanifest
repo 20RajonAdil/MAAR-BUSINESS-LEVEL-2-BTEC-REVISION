@@ -1,13 +1,24 @@
 {
+  "id": "./",
   "name": "MAAR BUSINESS LEVEL 2 BTEC",
   "short_name": "MAAR BTEC",
-  "description": "Interactive revision classroom for BTEC Level 2 Business – Finance.",
+  "description": "Interactive revision classroom for BTEC Level 2 Business: Finance and Marketing. Works offline.",
+  "lang": "en-GB",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#0b2a4a",
   "theme_color": "#0b2a4a",
+  "categories": ["education"],
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Finance", "url": "./#/finance", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] },
+    { "name": "Marketing", "url": "./#/marketing", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] }
   ]
 }

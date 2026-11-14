@@ -11,7 +11,7 @@ export const swotPestle: Topic = {
   number: 5,
   title: 'SWOT, PESTLE and Marketing Decisions',
   summary: 'Situational analysis, SWOT, PESTLE, competitor analysis, benchmarking, consumer behaviour and market trends.',
-  icon: '🧭',
+  icon: 'compass',
   source: 'Lesson 05 – SWOT, PESTLE and Marketing Decisions (Learning Aim B, Topics B.1–B.2); Revision slides 8–10, 18, 19',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: ['Use SWOT and PESTLE correctly.', 'Identify external opportunities and threats.', 'Explain the purpose of situational analysis.', 'Apply findings to a marketing decision.'] }] },
@@ -95,7 +95,7 @@ export const interpreting: Topic = {
   number: 6,
   title: 'Interpreting Market Research',
   summary: 'Market size, growth and share: calculating market share and using findings to recommend a decision.',
-  icon: '📈',
+  icon: 'line-chart',
   source: 'Lesson 06 – Interpreting Market Research Findings',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: ['Interpret market size, growth and share.', 'Calculate simple market-share figures.', 'Explain fast- and slow-growth implications.', 'Use findings to recommend a decision.'] }] },

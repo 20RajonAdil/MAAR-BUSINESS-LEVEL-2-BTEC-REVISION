@@ -8,7 +8,7 @@ export const startUpCosts: Topic = {
   number: 1,
   title: 'Start-Up Costs',
   summary: 'What a business must pay for before it can launch, and where the money comes from.',
-  icon: '🚀',
+  icon: 'rocket',
   source: 'Lesson 01 – Start-Up Costs; Revision.pptx (Expenditure, Start-up cost, Internal source of capital)',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [
@@ -67,7 +67,7 @@ export const runningCosts: Topic = {
   number: 2,
   title: 'Running Costs',
   summary: 'The day-to-day costs of keeping a business operating, with real-business examples.',
-  icon: '⚙️',
+  icon: 'cog',
   source: 'Lesson 02 – Running Costs; Revision.pptx (Running cost)',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [
@@ -112,7 +112,7 @@ export const fixedCosts: Topic = {
   number: 3,
   title: 'Fixed Costs',
   summary: 'Costs that stay the same however much is made or sold (indirect costs).',
-  icon: '📌',
+  icon: 'pin',
   source: 'Lesson 03 – Fixed Costs; Revision.pptx (Fixed Cost)',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [
@@ -164,7 +164,7 @@ export const variableCosts: Topic = {
   number: 4,
   title: 'Variable Costs',
   summary: 'Costs that rise and fall with the number of products made or sold (direct costs).',
-  icon: '📈',
+  icon: 'trending-up',
   source: 'Lesson 04 – Variable Costs',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [

@@ -11,7 +11,7 @@ export const productPrice: Topic = {
   number: 7,
   title: 'The Marketing Mix: Product and Price',
   summary: 'The 4 Ps, core/actual/augmented products, USPs, the product life cycle, portfolios, pricing strategies, elasticity and branding.',
-  icon: '🏷️',
+  icon: 'tag',
   source: 'Lesson 07 – The Marketing Mix: Product and Price; Revision slides 11, 12, 23, 24',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: ['Explain core and augmented products and USPs.', 'Apply the product life cycle.', 'Compare pricing strategies.', 'Explain elasticity of demand.'] }] },
@@ -114,7 +114,7 @@ export const placePromotion: Topic = {
   number: 8,
   title: 'Place, Promotion and Marketing Influences',
   summary: 'Distribution channels, location, the promotional mix, digital promotion, above and below the line, ecommerce and ebusiness, and influences on the mix.',
-  icon: '🚚',
+  icon: 'truck',
   source: 'Lesson 08 – Place, Promotion and Marketing Influences (Learning Aim C, Topics C.1–C.2); Revision slides 21, 22',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: ['Explain place and distribution decisions.', 'Compare promotional methods.', 'Distinguish ecommerce and ebusiness.', 'Evaluate influences and consistency across the mix.'] }] },

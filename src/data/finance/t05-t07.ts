@@ -10,7 +10,7 @@ export const totalCosts: Topic = {
   number: 5,
   title: 'Total Costs',
   summary: 'Adding fixed and variable costs together to find the total cost of a business.',
-  icon: '🧮',
+  icon: 'calculator',
   source: 'Lesson 05 – Total Costs; Revision.pptx (Total Cost)',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [
@@ -62,7 +62,7 @@ export const revenue: Topic = {
   number: 6,
   title: 'Revenue',
   summary: 'The money a business receives from selling its products, and how to grow it.',
-  icon: '💷',
+  icon: 'banknote',
   source: 'Lesson 06 – Revenue; Revision.pptx (Revenue)',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [
@@ -114,7 +114,7 @@ export const profitLoss: Topic = {
   number: 7,
   title: 'Profit or Loss',
   summary: 'Comparing revenue with expenditure to find out whether a business made a profit or a loss.',
-  icon: '⚖️',
+  icon: 'scale',
   source: 'Lesson 07 – Profit or Loss; Revision.pptx (Profit or Loss)',
   slides: [
     { title: 'Learning objectives', blocks: [{ t: 'list', items: [

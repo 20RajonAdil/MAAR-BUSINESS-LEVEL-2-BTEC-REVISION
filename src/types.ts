@@ -69,6 +69,14 @@ export interface Topic {
   customTest?: 'formula'
 }
 
+export interface SubjectHero {
+  line1: string
+  em: string
+  sub: string
+  orbIcons: string[]
+  highlight: { value: number; label: string }
+}
+
 export interface Subject {
   id: string
   name: string
@@ -76,6 +84,9 @@ export interface Subject {
   status: 'active' | 'coming-soon'
   topics: Topic[]
   quick?: QuickRevision
+  hero?: SubjectHero
+  /** example searches shown in the search sheet */
+  suggestions?: string[]
 }
 
 export interface QuickRevision {

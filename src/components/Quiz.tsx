@@ -7,6 +7,7 @@ import { MIXED, buildMixed } from '../lib/exam'
 import { inline } from '../lib/text'
 import { BlockView } from './Blocks'
 import { Chart } from './Charts'
+import { Icon } from './Icon'
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F']
 
@@ -49,8 +50,8 @@ export function AnswerInput({ q, value, onChange, locked, verdict, onSubmit }: I
                 onChange={() => multi ? onChange(on ? chosen.filter(c => c !== i) : [...chosen, i]) : onChange(i)} />
               <span className="letter" aria-hidden="true">{LETTERS[i]}</span>
               <span className="opt-text">{opt}</span>
-              {locked && correctSet.has(i) && <span className="mark ok" aria-label="correct">✓</span>}
-              {locked && on && !correctSet.has(i) && <span className="mark no" aria-label="incorrect">✗</span>}
+              {locked && correctSet.has(i) && <span className="mark ok" role="img" aria-label="correct"><Icon name="check" size={20} strokeWidth={3} /></span>}
+              {locked && on && !correctSet.has(i) && <span className="mark no" role="img" aria-label="incorrect"><Icon name="x" size={20} strokeWidth={3} /></span>}
             </label>
           )
         })}
@@ -65,7 +66,7 @@ export function AnswerInput({ q, value, onChange, locked, verdict, onSubmit }: I
           let cls = 'tf-btn'
           if (on) cls += ' on'
           if (locked) { if (q.answer === v) cls += ' right'; else if (on) cls += ' wrong' }
-          return <button key={String(v)} type="button" role="radio" aria-checked={on} disabled={locked} className={cls} onClick={() => onChange(v)}>{v ? 'True' : 'False'}{locked && q.answer === v ? ' ✓' : ''}{locked && on && q.answer !== v ? ' ✗' : ''}</button>
+          return <button key={String(v)} type="button" role="radio" aria-checked={on} disabled={locked} className={cls} onClick={() => onChange(v)}>{v ? 'True' : 'False'}{locked && q.answer === v && <Icon name="check" size={20} strokeWidth={3} />}{locked && on && q.answer !== v && <Icon name="x" size={20} strokeWidth={3} />}</button>
         })}
       </div>
     )
@@ -126,12 +127,12 @@ export function Quiz({ subject, topicId }: { subject: Subject; topicId: string }
   return (
     <div className="quiz-page">
       <nav className="crumbs" aria-label="Breadcrumb">
-        <a href={`#/${subject.id}`}>← All topics</a><span aria-hidden="true">/</span>
+        <a href={`#/${subject.id}`}><Icon name="arrow-left" size={15} /> All topics</a><span aria-hidden="true">/</span>
         <span>{isMixed ? 'Mixed practice exam' : `${topic!.number}. ${topic!.title}: Test my knowledge`}</span>
       </nav>
       <section className="quiz">
         <header className="quiz-head">
-          <div className="quiz-title">{isMixed ? '📝 Mixed practice exam' : `${topic!.icon} ${topic!.title}`}</div>
+          <div className="quiz-title"><Icon name={isMixed ? 'exam' : topic!.icon} size={20} />{isMixed ? 'Mixed practice exam' : topic!.title}</div>
           <div className="deck-count" aria-live="polite">Question {idx + 1} of {questions.length}</div>
         </header>
         <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={questions.length} aria-valuenow={done} aria-label="Questions answered"><div style={{ width: `${(done / questions.length) * 100}%` }} /></div>
@@ -143,7 +144,7 @@ export function Quiz({ subject, topicId }: { subject: Subject; topicId: string }
           <div ref={feedback} aria-live="polite">
             {checked && (
               <div className={`feedback ${checked.correct ? 'ok' : 'no'}`}>
-                <div className="fb-head"><span className="fb-icon" aria-hidden="true">{checked.correct ? '✓' : '✗'}</span>
+                <div className="fb-head"><span className="fb-icon" aria-hidden="true"><Icon name={checked.correct ? 'check' : 'x'} size={18} strokeWidth={3.2} /></span>
                   {checked.correct ? 'Correct! Well done.' : q.type === 'short' && checked.score > 0 ? 'Partly there.' : 'Not quite.'}</div>
                 {checked.detail && <p>{checked.detail}</p>}
                 {!checked.correct || q.type === 'short' ? <p><strong>{q.type === 'short' ? 'Model answer:' : 'Correct answer:'}</strong> {correctAnswerText(q)}</p> : null}
@@ -159,10 +160,10 @@ export function Quiz({ subject, topicId }: { subject: Subject; topicId: string }
         </div>
 
         <footer className="deck-foot">
-          <button className="btn btn-ghost" onClick={() => setIdx(Math.max(0, idx - 1))} disabled={idx === 0}>← Previous</button>
+          <button className="btn btn-ghost" onClick={() => setIdx(Math.max(0, idx - 1))} disabled={idx === 0}><Icon name="arrow-left" size={18} /> Previous</button>
           {!checked
             ? <button className="btn btn-primary" onClick={submit} disabled={!hasAnswer(q, value)}>Check answer</button>
-            : <button className="btn btn-gold" onClick={next}>{idx === questions.length - 1 ? 'See my results' : 'Next question →'}</button>}
+            : <button className="btn btn-gold" onClick={next}>{idx === questions.length - 1 ? 'See my results' : 'Next question'}<Icon name="arrow-right" size={18} /></button>}
         </footer>
       </section>
     </div>

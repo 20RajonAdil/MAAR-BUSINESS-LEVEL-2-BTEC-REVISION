@@ -1,8 +1,10 @@
 import type { Block } from '../types'
 import { inline } from '../lib/text'
 import { Chart } from './Charts'
+import { Icon } from './Icon'
 
 const TONE_LABEL = { key: 'Key point', tip: 'Tip', warn: 'Watch out', exam: 'Exam' } as const
+const TONE_ICON = { key: 'info', tip: 'bulb', warn: 'warn', exam: 'target' } as const
 
 export function BlockView({ b }: { b: Block }) {
   switch (b.t) {
@@ -51,7 +53,7 @@ export function BlockView({ b }: { b: Block }) {
     case 'callout':
       return (
         <div className={`b-callout tone-${b.tone}`}>
-          <div className="b-callout-title">{b.title ?? TONE_LABEL[b.tone]}</div>
+          <div className="b-callout-title"><Icon name={TONE_ICON[b.tone]} size={15} strokeWidth={2.4} />{b.title ?? TONE_LABEL[b.tone]}</div>
           <div>{inline(b.text)}</div>
         </div>
       )

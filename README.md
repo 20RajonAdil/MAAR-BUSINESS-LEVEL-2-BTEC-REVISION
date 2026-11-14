@@ -30,6 +30,23 @@ Marketing was built from `Lesson 01, 02, 04, 05, 06, 07, 08` and the Marketing `
 | Search (Ctrl/⌘ + K) across topics, slides, definitions and formulas | `SearchModal` |
 | Mixed-topic practice exam (28 questions, 2 per topic) | `#/finance/exam` |
 
+## Design, icons and mobile
+
+* **Hero:** inspired by the MAAR.Quran hero (arch outline, italic-serif headline with shimmer, animated orb, stats). The orb carries the logo and orbiting subject icons; the accent colour changes per subject (`data-subject`). Text is set in `subjects.ts` (`hero`).
+* **Icons:** every icon is inline SVG from `src/components/Icon.tsx` (Lucide). There are no emoji anywhere; `src/noemoji.test.ts` fails the build if one is added. Topic icons are names such as `rocket` in the topic data.
+* **Fonts:** Plus Jakarta Sans and Instrument Serif are self-hosted (`src/assets/fonts`), so nothing is requested from Google and they work offline.
+* **Phones:** full-screen search sheet (16px field, 44px+ tap rows, recent searches, filter chips, follows the on-screen keyboard), bottom navigation, bottom-sheet subject switcher, safe-area support for notches, no zoom-on-focus.
+
+## Offline (automatic)
+
+The site is a PWA. `vite.config.ts` lists every file of each build and writes `dist/sw.js` from `sw-template.js`, so **new content is cached automatically with no extra step**.
+
+* First visit: the service worker saves the whole site; the header shows **Offline ready**.
+* Offline: pages, slides, charts, quizzes, search, formula test and progress all work; the header shows **Offline**.
+* Updates: a new build installs in the background, old files are removed, and a small **“A new version is ready · Refresh”** message appears. Nobody is interrupted mid-quiz.
+* Installable from the browser (manifest with maskable icons and Finance/Marketing shortcuts).
+* The service worker runs only on the built site over HTTPS or localhost (not in `npm run dev`).
+
 ## Logo
 
 The logo is `public/icon-192.png` (also used as favicon, home-screen icon and in the header, hero and footer). Replace that file (and `icon-512.png`, `favicon.png`, `apple-touch-icon.png`) to change it.
@@ -79,7 +96,7 @@ The lesson decks 01 and 02 contain no questions (they link to external quizzes);
 * Written/evaluation questions (e.g. Sarah's café, Ryan's cash flow, Zumiera's decision) are marked by **key-idea matching**, not by understanding. Always compare with the model answer.
 * The images inside the PowerPoint files (e.g. clip-art, timers) are not reproduced; charts and tables were redrawn as live SVG/HTML from their data.
 * Progress and best scores are stored in the browser (`localStorage`) on each device.
-* Offline mode uses a small service worker and only works on the deployed site (HTTPS), after one online visit.
+* Offline mode needs one online visit first, and a browser that supports service workers (all current ones do). Private/incognito windows may clear it when closed.
 
 ## Marketing: things to check with your teacher
 

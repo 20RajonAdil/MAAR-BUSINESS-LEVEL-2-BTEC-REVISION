@@ -6,9 +6,10 @@ import { inline } from '../lib/text'
 import { MUST_KNOW_ID, fullFormula } from '../data/finance/formulaBank'
 import { REQUIRED_ATTEMPTS, buildAttempt, buildReport, useFormulaHistory, type Attempt, type Report, type Row } from '../lib/formulaTest'
 import { AnswerInput, QuestionBody, hasAnswer } from './Quiz'
+import { Icon } from './Icon'
 
 const pct = (x: number) => `${Math.round(x * 100)}%`
-const mark = (v: number | null) => (v === null ? '–' : v === 1 ? '✓' : v === 0 ? '✗' : '½')
+const Mark = ({ v }: { v: number | null }) => (v === null ? <>–</> : v === 1 ? <Icon name="check" size={18} strokeWidth={3} /> : v === 0 ? <Icon name="x" size={18} strokeWidth={3} /> : <Icon name="minus" size={18} strokeWidth={3} />)
 const markCls = (v: number | null) => (v === null ? '' : v === 1 ? 'ok' : v === 0 ? 'no' : 'half')
 const STATUS = { secure: 'Secure', developing: 'Developing', weak: 'Needs work' } as const
 
@@ -16,7 +17,7 @@ function Meter({ done }: { done: number }) {
   return (
     <div className="meter" aria-label={`${Math.min(done, REQUIRED_ATTEMPTS)} of ${REQUIRED_ATTEMPTS} attempts completed`}>
       {Array.from({ length: REQUIRED_ATTEMPTS }, (_, i) => (
-        <div key={i} className={`meter-step${i < done ? ' on' : ''}`}><span>{i < done ? '✓' : i + 1}</span><small>Attempt {i + 1}</small></div>
+        <div key={i} className={`meter-step${i < done ? ' on' : ''}`}><span>{i < done ? <Icon name="check" size={22} strokeWidth={3} /> : i + 1}</span><small>Attempt {i + 1}</small></div>
       ))}
     </div>
   )
@@ -33,7 +34,7 @@ export function ReportView({ subject, report }: { subject: Subject; report: Repo
         <div className="rep-big"><strong>{pct(report.overall)}</strong><span>average over your last {REQUIRED_ATTEMPTS} attempts</span></div>
         <div className="rep-attempts">
           {report.attemptPct.map((p, i) => <div key={i} className="rep-att"><span>Attempt {i + 1}</span><strong>{pct(p)}</strong></div>)}
-          <p className={`rep-trend ${report.change > 0.005 ? 'up' : report.change < -0.005 ? 'down' : ''}`}>{report.change > 0.005 ? '▲' : report.change < -0.005 ? '▼' : '■'} Score {trend}.</p>
+          <p className={`rep-trend ${report.change > 0.005 ? 'up' : report.change < -0.005 ? 'down' : ''}`}><Icon name={report.change > 0.005 ? 'trending-up' : report.change < -0.005 ? 'trend-down' : 'minus'} size={18} /> Score {trend}.</p>
         </div>
       </div>
 
@@ -54,7 +55,7 @@ export function ReportView({ subject, report }: { subject: Subject; report: Repo
             ))}
           </ol>
         </>
-      ) : <div className="callout-win">🎉 All 11 formulas are secure. Brilliant work.</div>}
+      ) : <div className="callout-win"><Icon name="trophy" size={22} /> All 11 formulas are secure. Brilliant work.</div>}
 
       <h3>Formula by formula</h3>
       <div className="b-table-wrap">
@@ -64,7 +65,7 @@ export function ReportView({ subject, report }: { subject: Subject; report: Repo
             {report.rows.map(r => (
               <tr key={r.def.id}>
                 <th scope="row">{r.def.n}. {r.def.name}</th>
-                {r.perAttempt.map((v, i) => <td key={i} className={`c m ${markCls(v)}`} aria-label={v === 1 ? 'correct' : v === 0 ? 'incorrect' : 'partly correct'}>{mark(v)}</td>)}
+                {r.perAttempt.map((v, i) => <td key={i} className={`c m ${markCls(v)}`} aria-label={v === 1 ? 'correct' : v === 0 ? 'incorrect' : 'partly correct'}><Mark v={v} /></td>)}
                 <td className="c">{pct(r.pct)}</td>
                 <td><span className={`pill st-pill-${r.status}`}>{STATUS[r.status]}</span></td>
               </tr>
@@ -72,7 +73,7 @@ export function ReportView({ subject, report }: { subject: Subject; report: Repo
           </tbody>
         </table>
       </div>
-      <p className="muted small">✓ all right in that attempt · ½ some right · ✗ all wrong. Extra questions on weak formulas count towards “Overall”.</p>
+      <p className="muted small">Tick = all right in that attempt · dash = some right · cross = all wrong. Extra questions on weak formulas count towards “Overall”.</p>
       {report.strongest.length > 0 && <p><strong>Your strongest formulas:</strong> {report.strongest.map(r => r.def.name).join(', ')}.</p>}
     </section>
   )
@@ -98,7 +99,7 @@ function FormulaQuiz({ questions, subject, number, onFinish }: { questions: Ques
   return (
     <section className="quiz">
       <header className="quiz-head">
-        <div className="quiz-title">🧮 Formula Test · Attempt {number}</div>
+        <div className="quiz-title"><Icon name="sigma" size={20} /> Formula Test · Attempt {number}</div>
         <div className="deck-count" aria-live="polite">Question {idx + 1} of {questions.length}</div>
       </header>
       <div className="progress" role="progressbar" aria-valuemin={0} aria-valuemax={questions.length} aria-valuenow={done} aria-label="Questions answered"><div style={{ width: `${(done / questions.length) * 100}%` }} /></div>
@@ -108,7 +109,7 @@ function FormulaQuiz({ questions, subject, number, onFinish }: { questions: Ques
         <div ref={fb} aria-live="polite">
           {checked && (
             <div className={`feedback ${checked.correct ? 'ok' : 'no'}`}>
-              <div className="fb-head"><span className="fb-icon" aria-hidden="true">{checked.correct ? '✓' : '✗'}</span>{checked.correct ? 'Correct! Well done.' : 'Not quite.'}</div>
+              <div className="fb-head"><span className="fb-icon" aria-hidden="true"><Icon name={checked.correct ? 'check' : 'x'} size={18} strokeWidth={3.2} /></span>{checked.correct ? 'Correct! Well done.' : 'Not quite.'}</div>
               {!checked.correct && <p><strong>Correct answer:</strong> {correctAnswerText(q)}</p>}
               <p>{inline(q.explanation)}</p>
               {!checked.correct && <button className="btn btn-gold" onClick={() => go(paths.learn(subject.id, MUST_KNOW_ID, q.slide))}>REVISE THIS FORMULA</button>}
@@ -117,10 +118,10 @@ function FormulaQuiz({ questions, subject, number, onFinish }: { questions: Ques
         </div>
       </div>
       <footer className="deck-foot">
-        <button className="btn btn-ghost" onClick={() => setIdx(Math.max(0, idx - 1))} disabled={idx === 0}>← Previous</button>
+        <button className="btn btn-ghost" onClick={() => setIdx(Math.max(0, idx - 1))} disabled={idx === 0}><Icon name="arrow-left" size={18} /> Previous</button>
         {!checked
           ? <button className="btn btn-primary" onClick={submit} disabled={!hasAnswer(q, value)}>Check answer</button>
-          : <button className="btn btn-gold" onClick={next}>{idx === questions.length - 1 ? 'See my results' : 'Next question →'}</button>}
+          : <button className="btn btn-gold" onClick={next}>{idx === questions.length - 1 ? 'See my results' : 'Next question'}<Icon name="arrow-right" size={18} /></button>}
       </footer>
     </section>
   )
@@ -145,7 +146,7 @@ export function FormulaTest({ subject }: { subject: Subject }) {
   }
 
   const crumbs = (
-    <nav className="crumbs" aria-label="Breadcrumb"><a href={`#/${subject.id}`}>← All topics</a><span aria-hidden="true">/</span><span>Formula Test</span></nav>
+    <nav className="crumbs" aria-label="Breadcrumb"><a href={`#/${subject.id}`}><Icon name="arrow-left" size={15} /> All topics</a><span aria-hidden="true">/</span><span>Formula Test</span></nav>
   )
 
   if (phase === 'quiz') return <div className="quiz-page">{crumbs}<FormulaQuiz questions={qs} subject={subject} number={history.length + 1} onFinish={finish} /></div>
@@ -165,7 +166,7 @@ export function FormulaTest({ subject }: { subject: Subject }) {
           <div className="meter on-dark"><Meter done={history.length} /></div>
           <p className="grade">{left > 0 ? `Complete ${left} more attempt${left > 1 ? 's' : ''} to unlock your personal improvement report.` : 'Your improvement report is ready below.'}</p>
           <div className="score-actions">
-            <button className="btn btn-gold" onClick={start}>↻ Try another attempt</button>
+            <button className="btn btn-gold" onClick={start}><Icon name="refresh" size={18} /> Try another attempt</button>
             <button className="btn btn-primary" onClick={() => go(paths.learn(subject.id, MUST_KNOW_ID, 1))}>Study the formula slide</button>
             <button className="btn btn-outline" onClick={() => setPhase('hub')}>Formula Test home</button>
           </div>
@@ -183,7 +184,7 @@ export function FormulaTest({ subject }: { subject: Subject }) {
               ))}
             </ul>
           </section>
-        ) : <div className="callout-win">🎉 Perfect attempt!</div>}
+        ) : <div className="callout-win"><Icon name="trophy" size={22} /> Perfect attempt!</div>}
       </div>
     )
   }
@@ -194,18 +195,18 @@ export function FormulaTest({ subject }: { subject: Subject }) {
       {crumbs}
       <section className="ft-hero">
         <p className="eyebrow">Exam essentials</p>
-        <h1>🧮 Formula Test</h1>
+        <h1 className="with-ic"><Icon name="sigma" size={30} /> Formula Test</h1>
         <p>Every attempt asks all <strong>11 must-know formulas</strong> in a new order and a different format: pick the right formula, complete it, true or false, name the measure, or calculate with fresh numbers. Formulas you keep missing come back as extra questions.</p>
         <Meter done={n} />
         <p className="ft-note">{n < REQUIRED_ATTEMPTS ? `Take it ${REQUIRED_ATTEMPTS} times to unlock your personal improvement report (${n} of ${REQUIRED_ATTEMPTS} done).` : `Report unlocked. It uses your latest ${REQUIRED_ATTEMPTS} attempts, and updates every time you test again.`}</p>
         <div className="hero-actions">
           <button className="btn btn-gold" onClick={start}>{n === 0 ? 'Start attempt 1' : `Start attempt ${n + 1}`}</button>
-          <button className="btn btn-light" onClick={() => go(paths.learn(subject.id, MUST_KNOW_ID, 1))}>📖 Study the 11 formulas first</button>
+          <button className="btn btn-light" onClick={() => go(paths.learn(subject.id, MUST_KNOW_ID, 1))}><Icon name="book" size={18} /> Study the 11 formulas first</button>
         </div>
       </section>
       {report ? <ReportView subject={subject} report={report} /> : (
         <section className="locked">
-          <div className="locked-ico" aria-hidden="true">🔒</div>
+          <div className="locked-ico" aria-hidden="true"><Icon name="lock" size={28} /></div>
           <div><strong>Improvement report locked</strong><p className="muted">After {REQUIRED_ATTEMPTS} attempts you will see: your score trend, a formula-by-formula table, which formulas to improve, whether your problem is remembering the formula or using it in calculations, and exactly which slide to revise.</p></div>
         </section>
       )}

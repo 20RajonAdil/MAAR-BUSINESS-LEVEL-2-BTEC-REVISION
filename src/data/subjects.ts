@@ -5,6 +5,7 @@ import { breakEvenChart, breakEvenCalc } from './finance/t08-t09'
 import { grossNetProfit, incomeStatement, financialPosition } from './finance/t10-t12'
 import { cashFlow, ratiosComparing } from './finance/t13-t14'
 import { mustKnowFormulas } from './finance/t15-formulas'
+import { formulaBank } from './finance/formulaBank'
 import { financeQuick } from './finance/quick'
 import { principles, markets, research } from './marketing/m01-m03'
 import { swotPestle, interpreting } from './marketing/m05-m06'
@@ -18,6 +19,14 @@ export const finance: Subject = {
   status: 'active',
   topics: [startUpCosts, runningCosts, fixedCosts, variableCosts, totalCosts, revenue, profitLoss, breakEvenChart, breakEvenCalc, grossNetProfit, incomeStatement, financialPosition, cashFlow, ratiosComparing, mustKnowFormulas],
   quick: financeQuick,
+  hero: {
+    line1: 'Master the numbers.',
+    em: 'Pass with confidence.',
+    sub: 'Learn every Finance topic with clear presentation-style slides, test yourself straight away, and see exactly what to revise. Your progress stays on your device and the whole site works offline.',
+    orbIcons: ['coins', 'bar-chart', 'calculator'],
+    highlight: { value: formulaBank.length, label: 'Must-know formulas' },
+  },
+  suggestions: ['break-even', 'gross profit', 'working capital', 'margin of safety', 'current ratio', 'cash flow'],
 }
 
 /** Lesson 03 was not in the uploaded Marketing pack. When it arrives, add a topic file and insert it between `markets` and `research`. */
@@ -28,6 +37,14 @@ export const marketing: Subject = {
   status: 'active',
   topics: [principles, markets, research, swotPestle, interpreting, productPrice, placePromotion],
   quick: marketingQuick,
+  hero: {
+    line1: 'Understand the market.',
+    em: 'Win the exam.',
+    sub: 'Work through every Marketing lesson with clear slides, practise exam-style questions, and find out exactly which topics need more revision. Your progress stays on your device and the whole site works offline.',
+    orbIcons: ['megaphone', 'target', 'tag'],
+    highlight: { value: marketingQuick.definitions.length, label: 'Key terms' },
+  },
+  suggestions: ['SWOT', 'market share', 'USP', 'benchmarking', 'niche market', 'below the line'],
 }
 
 /** Add future subjects here – the whole app (menu, topics, slides, quizzes, search) is driven by this list. */

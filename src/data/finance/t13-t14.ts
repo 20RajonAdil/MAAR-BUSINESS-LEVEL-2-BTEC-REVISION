@@ -14,7 +14,7 @@ export const cashFlow: Topic = {
   number: 13,
   title: 'Cash Flow & Forecasts',
   summary: 'Cash inflows and outflows, net cash flow, opening and closing balances, and analysing a forecast.',
-  icon: '💧',
+  icon: 'droplets',
   source: 'Revision.pptx (Cashflow, Cash Flow Forecast – slides 18 to 23)',
   slides: [
     { title: 'Cash inflows and outflows', blocks: [
@@ -86,7 +86,7 @@ export const ratiosComparing: Topic = {
   number: 14,
   title: 'Ratios & Comparing Businesses',
   summary: 'The must-know formula sheet, profit margins, liquidity ratios and evaluating two businesses.',
-  icon: '🧠',
+  icon: 'percent',
   source: 'Formula sheet “Formulas You MUST Know Off-By-Heart” (photo); Revision.pptx (Current Ratio, Net profit, Financial Statement)',
   slides: [
     { title: 'Formulas you MUST know off-by-heart', blocks: [
