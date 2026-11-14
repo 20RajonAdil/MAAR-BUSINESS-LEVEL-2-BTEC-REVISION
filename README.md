@@ -5,6 +5,8 @@ React + TypeScript + Vite. No backend, no API keys, no paid services. Works offl
 
 **Learning journey:** LEARN → UNDERSTAND → TEST MY KNOWLEDGE → CHECK RESULTS → REVISE → TRY AGAIN
 
+Live site: https://maarbusinesslevel2btecrevision.vercel.app
+
 ## Subjects
 
 | Subject | Status | Content |
@@ -60,6 +62,9 @@ npm test           # unit tests: answer-checking engine and the formula-test gen
 npm run audit      # data audit: slide links, answer indexes, and independent re-calculation of 64+ numeric answers
 npm run build      # type-check + production build into dist/
 ```
+
+## 404 page
+Any address that is not a real page shows a themed 404 page: a mistyped path (`/anything`) gets `dist/404.html` (served by Vercel and GitHub Pages, and by the offline service worker), and a mistyped in-app address (`#/finance/quizz/x`, an unknown topic or an out-of-range slide) shows the same page inside the app. The design lives in `src/assets/not-found.html` and `src/styles/notfound.css`; the build copies it into `dist/404.html`.
 
 ## Deploying
 

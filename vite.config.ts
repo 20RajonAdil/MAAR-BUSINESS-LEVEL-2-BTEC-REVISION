@@ -14,6 +14,12 @@ function precacheManifest(): Plugin {
     configResolved(c) { outDir = c.build.outDir },
     closeBundle() {
       const root = join(process.cwd(), outDir)
+      // 404.html: same markup and CSS as the in-app 404 page, fully self-contained and with absolute links (it can be served at any depth)
+      const site = 'https://maarbusinesslevel2btecrevision.vercel.app'
+      const scene = readFileSync(join(process.cwd(), 'src/assets/not-found.html'), 'utf8')
+        .split('{{HOME}}').join(site + '/').split('{{FINANCE}}').join(site + '/#/finance').split('{{MARKETING}}').join(site + '/#/marketing').split('{{SITE}}').join(site)
+      const css = readFileSync(join(process.cwd(), 'src/styles/notfound.css'), 'utf8')
+      writeFileSync(join(root, '404.html'), readFileSync(join(process.cwd(), '404.template.html'), 'utf8').replace('/*__CSS__*/', () => css).replace('<!--__SCENE__-->', () => scene))
       const files: string[] = []
       const walk = (d: string) => {
         for (const n of readdirSync(d)) {

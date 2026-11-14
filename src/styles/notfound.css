@@ -1,0 +1,27 @@
+/* ---------- 404 page (also inlined into dist/404.html at build time, so it must not depend on app.css) ---------- */
+.nf { --nf-h: 72vh; position: relative; overflow: hidden; isolation: isolate; min-height: var(--nf-h); display: grid; place-items: center; border-radius: 24px; color: #efe6d0;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: radial-gradient(circle at 36% 52%, #2b628f 0%, #174a7a 20%, #0d3157 44%, #08213c 72%, #051527 100%); }
+.nf-inner { position: relative; z-index: 2; width: min(1000px, 100%); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(8px, 4vw, 56px); padding: clamp(24px, 5vw, 56px); }
+.nf-text { justify-self: end; max-width: 380px; }
+.nf-code { margin: 0; font: 400 clamp(5rem, 15vw, 9.5rem) / .9 'Instrument Serif', 'Iowan Old Style', Georgia, 'Times New Roman', serif; color: #f1e8d2; text-shadow: 0 0 44px rgba(245, 185, 66, .28); }
+.nf-title { margin: 8px 0 14px; font: italic 400 clamp(1.15rem, 2.6vw, 1.55rem) / 1.2 'Instrument Serif', Georgia, 'Times New Roman', serif; color: #dccfae; }
+.nf-msg { margin: 0 0 20px; max-width: 34ch; color: #b6c6da; font-size: .95rem; line-height: 1.55; }
+.nf-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.nf-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border-radius: 12px; border: 2px solid #f5b942; background: #f5b942; color: #3a2600; font-weight: 800; font-size: .92rem; text-decoration: none; transition: transform .08s ease, background .15s; }
+.nf-btn:hover { background: #ffc95e; } .nf-btn:active { transform: translateY(1px); }
+.nf-btn.nf-ghost { background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .35); color: #fff; } .nf-btn.nf-ghost:hover { background: rgba(255, 255, 255, .16); }
+.nf-btn:focus-visible, .nf-site:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+.nf-site { display: inline-block; margin-top: 18px; color: #f5b942; font-weight: 700; font-size: .85rem; letter-spacing: .02em; overflow-wrap: anywhere; }
+.nf-scene { width: 100%; max-width: 440px; height: auto; justify-self: start; overflow: visible; }
+.nf-glow { transform-box: fill-box; transform-origin: center; animation: nfFlicker 3.4s ease-in-out infinite; }
+.nf-fly { position: absolute; z-index: 1; width: 5px; height: 5px; border-radius: 50%; background: #ffe9a8; box-shadow: 0 0 10px 3px rgba(245, 185, 66, .65); animation: nfFloat var(--d, 8s) ease-in-out infinite alternate, nfTwinkle var(--t, 3s) ease-in-out infinite; }
+@keyframes nfFlicker { 0%, 100% { opacity: .88; transform: scale(1); } 35% { opacity: 1; transform: scale(1.06); } 70% { opacity: .8; transform: scale(.97); } }
+@keyframes nfFloat { from { transform: translate(0, 0); } to { transform: translate(18px, -26px); } }
+@keyframes nfTwinkle { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .nf-glow, .nf-fly { animation: none; } .nf-fly { opacity: .7; } }
+@media (max-width: 719px) {
+  .nf-inner { grid-template-columns: 1fr; text-align: center; justify-items: center; gap: 0; }
+  .nf-text { justify-self: center; max-width: 100%; } .nf-msg { margin-inline: auto; } .nf-actions { justify-content: center; }
+  .nf-scene { order: -1; max-width: 270px; justify-self: center; }
+}

@@ -39,6 +39,17 @@ self.addEventListener('fetch', (event) => {
 
   // Page loads: serve the app shell straight from the cache (instant, works offline). Routing is hash-based.
   if (req.mode === 'navigate') {
+    // Only the site root (or index.html) is the app. Any other path is a mistyped address: show the 404 page.
+    const scopePath = new URL(self.registration.scope).pathname
+    const rel = url.pathname.startsWith(scopePath) ? url.pathname.slice(scopePath.length) : url.pathname
+    if (rel !== '' && rel !== 'index.html') {
+      event.respondWith(
+        caches.match(scopeUrl('./404.html'))
+          .then((hit) => hit ? hit.text().then((t) => new Response(t, { status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8' } })) : fetch(req))
+          .catch(() => fetch(req)),
+      )
+      return
+    }
     event.respondWith(
       caches.match(scopeUrl('./index.html')).then((hit) => hit || fetch(req)).catch(() => caches.match(scopeUrl('./index.html'))),
     )

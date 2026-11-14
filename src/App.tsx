@@ -9,6 +9,8 @@ import { QuickRevision } from './components/QuickRevision'
 import { SearchModal } from './components/SearchModal'
 import { FormulaTest } from './components/FormulaTest'
 import { Progress } from './components/Progress'
+import { NotFound } from './components/NotFound'
+import { SITE_URL } from './lib/site'
 import { BottomNav } from './components/BottomNav'
 import { OfflinePill, OfflineToast } from './components/OfflineStatus'
 import { Icon } from './components/Icon'
@@ -19,6 +21,7 @@ import './styles/app.css'
 import './styles/hero.css'
 import './styles/mobile.css'
 import './styles/progress.css'
+import './styles/notfound.css'
 
 function SubjectMenu({ current, open, setOpen }: { current: string; open: boolean; setOpen: (v: boolean) => void }) {
   const wrap = useRef<HTMLDivElement>(null)
@@ -75,7 +78,7 @@ export default function App() {
   useEffect(() => { setSubjectsOpen(false) }, [route.subject, route.page])
   const subject = getSubject(route.subject) ?? subjects[0]
   const active = subject.status === 'active'
-  const immersive = route.page === 'learn' || route.page === 'quiz' || route.page === 'exam'
+  const immersive = route.page === 'learn' || route.page === 'quiz' || route.page === 'exam' || route.page === 'notfound'
 
   useEffect(() => {
     const on = (e: KeyboardEvent) => {
@@ -86,7 +89,8 @@ export default function App() {
   }, [])
 
   let page
-  if (!active) page = <ComingSoon name={subject.name} />
+  if (route.page === 'notfound') page = <NotFound />
+  else if (!active) page = <ComingSoon name={subject.name} />
   else if (route.page === 'learn') {
     const topic = subject.topics.find(t => t.id === route.topic)
     page = topic ? <SlideDeck key={topic.id} subjectId={subject.id} topic={topic} index={route.slide ?? 0} /> : <p className="empty">Topic not found. <a href={`#/${subject.id}`}>Back to topics</a></p>
@@ -100,7 +104,7 @@ export default function App() {
 
   return (
     <div className={`app${immersive ? ' is-immersive' : ''}`}>
-      <a className="skip" href="#main">Skip to content</a>
+      <a className="skip" href="#main" onClick={e => { e.preventDefault(); document.getElementById('main')?.focus() }}>Skip to content</a>
       <header className="topbar">
         <a className="brand" href={`#/${subject.id}`} aria-label="MAAR BUSINESS LEVEL 2 BTEC home">
           <Logo className="logo-img" />
@@ -113,11 +117,12 @@ export default function App() {
           <SubjectMenu current={subject.id} open={subjectsOpen} setOpen={setSubjectsOpen} />
         </div>
       </header>
-      <main id="main" className="main">{page}</main>
+      <main id="main" className="main" tabIndex={-1}>{page}</main>
       <footer className="foot">
         <Logo className="foot-logo" />
         <p>MAAR BUSINESS LEVEL 2 BTEC · {subject.name}: {subject.tagline}</p>
         <p className="foot-small">Built from your course slides. Questions marked “Practice” were generated from the lesson content. Works offline once opened.</p>
+        <p className="foot-small"><a href={SITE_URL}>maarbusinesslevel2btecrevision.vercel.app</a></p>
       </footer>
       {active && !immersive && <BottomNav route={route} subjectId={subject.id} onSearch={() => setSearching(true)} onSubjects={() => setSubjectsOpen(o => !o)} />}
       <OfflineToast />
